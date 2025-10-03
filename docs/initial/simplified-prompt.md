@@ -8,8 +8,8 @@ Design a scalable, fault-tolerant storage service (like Google Drive) that suppo
 ***
 
 ### 1. Tech Stack  
-- Frontend (Storage Management dashboard): Next.js  
-- Backend (API): Express.js  
+- Frontend (Storage Management dashboard): Next.js (use the most suitable UI library for the project)
+- Backend (API): Express.js (use the most suitable framework for the project, need review if change the framework)
 - Documentation site: Docusaurus  
 - Database: PostgreSQL (self-hosted Docker volume)  
 - File storage: Self-hosted Docker volume  
