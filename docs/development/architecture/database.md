@@ -2,7 +2,7 @@
 
 ## Database Technology
 
-**MongoDB 7.0** - Document-oriented NoSQL database
+**MongoDB 8.0** - Document-oriented NoSQL database
 
 ### Why MongoDB?
 - ✅ Flexible schema for evolving requirements
@@ -12,6 +12,14 @@
 - ✅ Horizontal scalability with sharding
 - ✅ Strong community and ecosystem
 - ✅ Native support for arrays and nested documents
+
+### MongoDB 8.0 Features
+- ✅ Enhanced query performance and optimization
+- ✅ Improved compound index efficiency
+- ✅ Better aggregation pipeline performance
+- ✅ Enhanced security features
+- ✅ Optimized storage engine
+- ✅ Better handling of large datasets
 
 ## Database Structure
 

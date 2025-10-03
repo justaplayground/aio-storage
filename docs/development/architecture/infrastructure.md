@@ -36,7 +36,7 @@ AIO Storage uses a containerized microservices architecture orchestrated with Do
 ## Service Details
 
 ### 1. MongoDB
-**Image**: `mongo:7.0`  
+**Image**: `mongo:8.0`  
 **Container**: `aio-storage-mongodb`  
 **Port**: `27017`
 

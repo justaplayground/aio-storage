@@ -9,8 +9,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@aio-storage/database": "*",
-    "@aio-storage/shared": "*",
+    "@aio-storage/database": "workspace:*",
+    "@aio-storage/shared": "workspace:*",
     "dotenv": "^16.3.1",
     "ioredis": "^5.3.2",
     "amqplib": "^0.10.3",

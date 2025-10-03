@@ -9,8 +9,8 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@aio-storage/database": "*",
-    "@aio-storage/shared": "*",
+    "@aio-storage/database": "workspace:*",
+    "@aio-storage/shared": "workspace:*",
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "helmet": "^7.1.0",
