@@ -5,6 +5,11 @@ dotenv.config();
 export const config = {
   nodeEnv: process.env.NODE_ENV || 'development',
   
+  // Feature flags
+  features: {
+    enableRabbitMQ: process.env.ENABLE_RABBITMQ !== 'false', // defaults to true
+  },
+  
   mongodb: {
     uri: process.env.MONGODB_URI || 'mongodb://localhost:27017/aio_storage',
   },

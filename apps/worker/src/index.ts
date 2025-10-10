@@ -1,4 +1,4 @@
-import amqp, { Channel, Connection } from 'amqplib';
+import * as amqplib from 'amqplib';
 import { database } from '@aio-storage/database';
 import { config } from './config';
 import { logger } from './utils/logger';
@@ -12,13 +12,22 @@ const QUEUES = {
   TRANSCODE: 'video.transcode',
 };
 
-let connection: Connection;
-let channel: Channel;
+interface QueueSetupResult {
+  success: boolean;
+  connection?: amqplib.ChannelModel;
+  channel?: amqplib.Channel;
+}
 
-const setupQueues = async (): Promise<void> => {
+const setupQueues = async (): Promise<QueueSetupResult> => {
+  // Check if RabbitMQ is enabled
+  if (!config.features.enableRabbitMQ) {
+    logger.warn('⚠️  RabbitMQ is disabled. Worker will not process jobs.');
+    return { success: false };
+  }
+
   try {
-    connection = await amqp.connect(config.rabbitmq.url);
-    channel = await connection.createChannel();
+    const connection = await amqplib.connect(config.rabbitmq.url);
+    const channel = await connection.createChannel();
 
     // Assert queues
     await channel.assertQueue(QUEUES.UPLOAD, { durable: true });
@@ -67,9 +76,10 @@ const setupQueues = async (): Promise<void> => {
     );
 
     logger.info('🎯 Worker is listening for jobs...');
+    return { success: true, connection, channel };
   } catch (error) {
-    logger.error('❌ Failed to setup queues:', error);
-    throw error;
+    logger.warn('⚠️  Failed to connect to RabbitMQ, worker will idle:', error);
+    return { success: false };
   }
 };
 
@@ -78,16 +88,25 @@ const startWorker = async (): Promise<void> => {
     // Connect to MongoDB
     await database.connect(config.mongodb.uri);
 
-    // Setup RabbitMQ queues
-    await setupQueues();
+    // Setup RabbitMQ queues (optional with fallback)
+    const { success, connection, channel } = await setupQueues();
+    
+    if (!success) {
+      logger.warn('⚠️  Worker started in idle mode - no job processing available');
+      logger.info('💡 To enable job processing, set ENABLE_RABBITMQ=true and ensure RabbitMQ is running');
+    }
 
     // Graceful shutdown
     const shutdown = async (signal: string): Promise<void> => {
       logger.info(`${signal} received. Starting graceful shutdown...`);
 
       try {
-        await channel?.close();
-        await connection?.close();
+        if (channel) {
+          await channel.close();
+        }
+        if (connection) {
+          await connection.close();
+        }
         await database.disconnect();
         logger.info('✅ Worker shutdown completed');
         process.exit(0);
@@ -106,4 +125,3 @@ const startWorker = async (): Promise<void> => {
 };
 
 startWorker();
-

@@ -3,6 +3,7 @@
 This guide covers deploying AIO Storage in various environments.
 
 ## Table of Contents
+
 - [Quick Start with Docker](#quick-start-with-docker)
 - [Development Setup](#development-setup)
 - [Production Deployment](#production-deployment)
@@ -22,6 +23,7 @@ chmod +x scripts/*.sh
 ```
 
 This will:
+
 1. Install all npm dependencies
 2. Create `.env` file from `.env.example`
 3. Build Docker images
@@ -76,6 +78,7 @@ npm run dev
 ```
 
 This will start:
+
 - API Server on port 4000
 - Web App on port 3000
 - Worker process in background
@@ -83,6 +86,7 @@ This will start:
 ## Production Deployment
 
 ### Prerequisites
+
 - Docker and Docker Compose installed
 - Domain name (optional, but recommended)
 - SSL certificate (for HTTPS)
@@ -91,18 +95,21 @@ This will start:
 ### Deployment Steps
 
 1. **Clone repository on server**
+
    ```bash
    git clone <repository-url>
    cd aio-storage
    ```
 
 2. **Configure environment**
+
    ```bash
    cp .env.example .env
    nano .env  # Edit with production values
    ```
 
    **Important production changes:**
+
    - Change `JWT_SECRET` to a strong random string
    - Set `NODE_ENV=production`
    - Update MongoDB password
@@ -111,16 +118,19 @@ This will start:
    - Configure CORS origins
 
 3. **Build production images**
+
    ```bash
    docker-compose build
    ```
 
 4. **Start services**
+
    ```bash
    docker-compose up -d
    ```
 
 5. **Verify deployment**
+
    ```bash
    # Check all services are running
    docker-compose ps
@@ -172,7 +182,7 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        
+
         # Increase timeout for file uploads
         proxy_connect_timeout 600;
         proxy_send_timeout 600;
@@ -186,6 +196,7 @@ server {
 ```
 
 Enable the site:
+
 ```bash
 sudo ln -s /etc/nginx/sites-available/aio-storage /etc/nginx/sites-enabled/
 sudo nginx -t
@@ -197,24 +208,28 @@ sudo systemctl reload nginx
 ### Required Environment Variables
 
 #### Database
+
 ```env
 MONGODB_URI=mongodb://admin:PASSWORD@mongodb:27017/aio_storage?authSource=admin
 MONGODB_DB_NAME=aio_storage
 ```
 
 #### Cache & Queue
+
 ```env
 REDIS_URL=redis://redis:6379
 RABBITMQ_URL=amqp://admin:PASSWORD@rabbitmq:5672
 ```
 
 #### Security
+
 ```env
 JWT_SECRET=<generate-strong-random-string>
 JWT_EXPIRES_IN=7d
 ```
 
 #### Services
+
 ```env
 API_PORT=4000
 WEB_PORT=3000
@@ -222,6 +237,7 @@ NEXT_PUBLIC_API_URL=http://localhost:4000
 ```
 
 #### Storage
+
 ```env
 STORAGE_PATH=/app/storage
 MAX_FILE_SIZE=104857600  # 100MB in bytes
@@ -366,22 +382,26 @@ docker image prune -a
 ## Performance Tuning
 
 ### MongoDB
+
 - Enable indexes (already configured in models)
 - Adjust connection pool size in `packages/database/src/connection.ts`
 - Monitor query performance
 
 ### Redis
+
 - Adjust TTL values based on usage patterns
 - Monitor memory usage
 - Configure eviction policies
 
 ### Worker
+
 - Scale worker instances for heavy workloads:
   ```bash
   docker-compose up -d --scale worker=3
   ```
 
 ### File Storage
+
 - Use SSD for storage volume
 - Implement CDN for file delivery (future enhancement)
 - Consider object storage like S3 for production
@@ -421,10 +441,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: '2'
+          cpus: "2"
           memory: 2G
         reservations:
-          cpus: '1'
+          cpus: "1"
           memory: 1G
 ```
 
@@ -456,6 +476,7 @@ Currently, MongoDB handles schema changes automatically. For major schema change
 ## Support
 
 For issues or questions:
+
 - Check [README.md](README.md) for general information
 - Review [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines
 - Open an issue on GitHub
@@ -463,4 +484,3 @@ For issues or questions:
 ---
 
 **Deployed with 🚀**
-

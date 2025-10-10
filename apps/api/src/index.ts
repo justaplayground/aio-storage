@@ -7,14 +7,17 @@ import { logger } from './utils/logger';
 
 const startServer = async (): Promise<void> => {
   try {
-    // Connect to MongoDB
+    // Connect to MongoDB (required)
     await database.connect(config.mongodb.uri);
 
-    // Connect to Redis
+    // Connect to Redis (required)
     redisService.getClient();
 
-    // Connect to RabbitMQ
+    // Connect to RabbitMQ (optional with fallback)
     await queueService.connect();
+    if (!queueService.isAvailable()) {
+      logger.warn('⚠️  Server starting without RabbitMQ - background jobs will be queued in memory');
+    }
 
     // Create Express app
     const app = createApp();
@@ -23,6 +26,7 @@ const startServer = async (): Promise<void> => {
     const server = app.listen(config.port, () => {
       logger.info(`🚀 API server running on port ${config.port}`);
       logger.info(`📝 Environment: ${config.nodeEnv}`);
+      logger.info(`🐰 RabbitMQ: ${queueService.isAvailable() ? 'enabled' : 'disabled (fallback mode)'}`);
     });
 
     // Graceful shutdown
@@ -34,7 +38,9 @@ const startServer = async (): Promise<void> => {
 
         try {
           await database.disconnect();
-          await queueService.close();
+          if (queueService.isAvailable()) {
+            await queueService.close();
+          }
           logger.info('✅ Graceful shutdown completed');
           process.exit(0);
         } catch (error) {

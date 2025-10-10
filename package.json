@@ -1,11 +1,17 @@
 {
   "name": "aio-storage",
-  "version": "1.0.0",
+  "version": "1.0.16",
   "private": true,
   "description": "Asynchronous Storage Management System",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "pnpm build:packages && turbo run dev --filter='./apps/*'",
+    "dev:watch": "turbo run dev",
+    "dev:api": "turbo run dev --filter='@aio-storage/api'",
+    "dev:web": "turbo run dev --filter='@aio-storage/web'",
+    "dev:worker": "turbo run dev --filter='@aio-storage/worker'",
     "build": "turbo run build",
+    "build:packages": "turbo run build --filter='./packages/*'",
+    "watch:packages": "turbo run watch --filter='./packages/*'",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "docker:up": "docker-compose up -d",
@@ -18,12 +24,13 @@
     "packages/*"
   ],
   "devDependencies": {
-    "turbo": "^2.0.0",
+    "turbo": "^2.5.6",
     "typescript": "^5.3.3"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.18.2"
 }
 

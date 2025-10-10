@@ -5,17 +5,20 @@ Thank you for your interest in contributing to AIO Storage! This document provid
 ## Development Setup
 
 1. **Fork and clone the repository**
+
    ```bash
    git clone https://github.com/your-username/aio-storage.git
    cd aio-storage
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment**
+
    ```bash
    cp .env.example .env
    ```
@@ -42,18 +45,21 @@ aio-storage/
 ## Coding Standards
 
 ### TypeScript
+
 - Use TypeScript for all new code
 - Enable strict mode
 - Define proper types/interfaces
 - Avoid `any` types
 
 ### Code Style
+
 - Use ES6+ features
 - Follow the existing code style
 - Use meaningful variable and function names
 - Add comments for complex logic
 
 ### Commits
+
 - Write clear, descriptive commit messages
 - Follow conventional commits format:
   - `feat:` New feature
@@ -65,6 +71,7 @@ aio-storage/
   - `chore:` Maintenance tasks
 
 Example:
+
 ```bash
 git commit -m "feat: add file upload with progress tracking"
 git commit -m "fix: resolve MongoDB connection timeout issue"
@@ -82,16 +89,17 @@ git commit -m "fix: resolve MongoDB connection timeout issue"
 6. **Update documentation**
 
 Example route structure:
+
 ```typescript
 // apps/api/src/routes/files.routes.ts
-import { Router } from 'express';
-import { authenticate } from '../middleware/auth';
-import { fileController } from '../controllers/file.controller';
+import { Router } from "express";
+import { authenticate } from "../middleware/auth";
+import { fileController } from "../controllers/file.controller";
 
 const router = Router();
 
-router.post('/upload', authenticate, fileController.upload);
-router.get('/:id', authenticate, fileController.getFile);
+router.post("/upload", authenticate, fileController.upload);
+router.get("/:id", authenticate, fileController.getFile);
 
 export default router;
 ```
@@ -105,12 +113,13 @@ export default router;
 5. **Use Shadcn/UI components** for consistency
 
 Example page structure:
+
 ```typescript
 // apps/web/src/app/files/page.tsx
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { apiClient } from '@/lib/api'
+import { useState, useEffect } from "react";
+import { apiClient } from "@/lib/api";
 
 export default function FilesPage() {
   // Component logic
@@ -124,6 +133,7 @@ export default function FilesPage() {
 3. **Add job types** in `packages/shared/src/types/`
 
 Example processor:
+
 ```typescript
 // apps/worker/src/processors/example.processor.ts
 export class ExampleProcessor {
@@ -145,22 +155,26 @@ Currently, the project doesn't have automated tests. When adding tests:
 ## Pull Request Process
 
 1. **Create a feature branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    ```
 
 2. **Make your changes**
+
    - Write clean, well-documented code
    - Follow the coding standards
    - Test your changes locally
 
 3. **Commit your changes**
+
    ```bash
    git add .
    git commit -m "feat: add your feature"
    ```
 
 4. **Push to your fork**
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -181,6 +195,7 @@ Currently, the project doesn't have automated tests. When adding tests:
 ## Questions?
 
 If you have questions:
+
 1. Check the README.md
 2. Review existing code for examples
 3. Open an issue for discussion
@@ -188,4 +203,3 @@ If you have questions:
 ## License
 
 By contributing, you agree that your contributions will be licensed under the MIT License.
-

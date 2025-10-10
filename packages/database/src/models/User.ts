@@ -31,7 +31,7 @@ const UserSchema = new Schema<IUserDocument>(
     },
     storageQuota: {
       type: Number,
-      default: 10737418240, // 10 GB in bytes
+      default: 53687091200, // 50 GiB in bytes
       min: 0,
     },
   },

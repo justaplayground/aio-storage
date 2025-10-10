@@ -1,11 +1,11 @@
-import { Request, Response } from 'express';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import { User } from '@aio-storage/database';
-import { AuditLog } from '@aio-storage/database';
-import { AppError, IUserResponse } from '@aio-storage/shared';
-import { config } from '../config';
-import { logger } from '../utils/logger';
+import { Request, Response } from "express";
+import bcrypt from "bcryptjs";
+import jwt, { SignOptions } from "jsonwebtoken";
+import { User } from "@aio-storage/database";
+import { AuditLog } from "@aio-storage/database";
+import { AppError, IUserResponse } from "@aio-storage/shared";
+import { config } from "../config";
+import { logger } from "../utils/logger";
 
 export class AuthController {
   public async register(req: Request, res: Response): Promise<void> {
@@ -17,7 +17,7 @@ export class AuthController {
     });
 
     if (existingUser) {
-      throw new AppError(409, 'User with this email or username already exists');
+      throw new AppError(409, "User with this email or username already exists");
     }
 
     // Hash password
@@ -34,8 +34,8 @@ export class AuthController {
 
     // Log audit
     await AuditLog.create({
-      userId: user._id.toString(),
-      action: 'register',
+      userId: String(user._id),
+      action: "register",
       resourceId: null,
       details: { email, username },
     });
@@ -43,12 +43,12 @@ export class AuthController {
     logger.info(`New user registered: ${email}`);
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id.toString() }, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn,
+    const token = jwt.sign({ userId: String(user._id) }, config.jwt.secret, {
+      expiresIn: config.jwt.expiresIn as SignOptions["expiresIn"],
     });
 
     const userResponse: IUserResponse = {
-      id: user._id.toString(),
+      id: String(user._id),
       username: user.username,
       email: user.email,
       storageUsed: user.storageUsed,
@@ -58,7 +58,7 @@ export class AuthController {
     };
 
     res.status(201).json({
-      status: 'success',
+      status: "success",
       data: {
         user: userResponse,
         token,
@@ -73,20 +73,20 @@ export class AuthController {
     const user = await User.findOne({ email });
 
     if (!user) {
-      throw new AppError(401, 'Invalid email or password');
+      throw new AppError(401, "Invalid email or password");
     }
 
     // Verify password
     const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
 
     if (!isPasswordValid) {
-      throw new AppError(401, 'Invalid email or password');
+      throw new AppError(401, "Invalid email or password");
     }
 
     // Log audit
     await AuditLog.create({
-      userId: user._id.toString(),
-      action: 'login',
+      userId: String(user._id),
+      action: "login",
       resourceId: null,
       details: { email },
     });
@@ -94,12 +94,12 @@ export class AuthController {
     logger.info(`User logged in: ${email}`);
 
     // Generate JWT
-    const token = jwt.sign({ userId: user._id.toString() }, config.jwt.secret, {
-      expiresIn: config.jwt.expiresIn,
+    const token = jwt.sign({ userId: String(user._id) }, config.jwt.secret, {
+      expiresIn: config.jwt.expiresIn as SignOptions["expiresIn"],
     });
 
     const userResponse: IUserResponse = {
-      id: user._id.toString(),
+      id: String(user._id),
       username: user.username,
       email: user.email,
       storageUsed: user.storageUsed,
@@ -109,7 +109,7 @@ export class AuthController {
     };
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         user: userResponse,
         token,
@@ -123,11 +123,11 @@ export class AuthController {
     const user = await User.findById(userId);
 
     if (!user) {
-      throw new AppError(404, 'User not found');
+      throw new AppError(404, "User not found");
     }
 
     const userResponse: IUserResponse = {
-      id: user._id.toString(),
+      id: String(user._id),
       username: user.username,
       email: user.email,
       storageUsed: user.storageUsed,
@@ -137,7 +137,7 @@ export class AuthController {
     };
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         user: userResponse,
       },
@@ -146,4 +146,3 @@ export class AuthController {
 }
 
 export const authController = new AuthController();
-
