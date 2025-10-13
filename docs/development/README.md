@@ -1,6 +1,6 @@
 # Development Documentation
 
-This directory contains comprehensive development documentation for the AIO Storage project, organized by development phases and technical areas.
+This directory contains comprehensive development documentation for Cloudipa All In One Storage project, organized by development phases and technical areas.
 
 ## 📁 Documentation Structure
 

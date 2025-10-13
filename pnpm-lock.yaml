@@ -115,10 +115,10 @@ importers:
         specifier: ^1.6.2
         version: 1.12.2
       class-variance-authority:
-        specifier: ^0.7.0
+        specifier: ^0.7.1
         version: 0.7.1
       clsx:
-        specifier: ^2.0.0
+        specifier: ^2.1.1
         version: 2.1.1
       lucide-react:
         specifier: ^0.303.0
@@ -133,7 +133,7 @@ importers:
         specifier: ^18.2.0
         version: 18.3.1(react@18.3.1)
       tailwind-merge:
-        specifier: ^2.2.0
+        specifier: ^2.6.0
         version: 2.6.0
       zustand:
         specifier: ^4.4.7

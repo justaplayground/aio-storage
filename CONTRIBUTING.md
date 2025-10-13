@@ -1,6 +1,6 @@
-# Contributing to AIO Storage
+# Contributing to Cloudipa
 
-Thank you for your interest in contributing to AIO Storage! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to Cloudipa! This document provides guidelines and instructions for contributing.
 
 ## Development Setup
 

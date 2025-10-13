@@ -8,9 +8,9 @@ AIO Storage is built as a modern, scalable cloud storage platform using a micros
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                         Client Layer                         │
+│                        Client Layer                         │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │              Next.js Web Application                  │   │
+│  │              Next.js Web Application                 │   │
 │  │  - React Components (Shadcn/UI)                      │   │
 │  │  - State Management (Zustand)                        │   │
 │  │  - API Client (Axios)                                │   │
@@ -20,14 +20,14 @@ AIO Storage is built as a modern, scalable cloud storage platform using a micros
                               │ HTTPS/REST API
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                      Application Layer                       │
+│                     Application Layer                       │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │              Express.js API Server                    │   │
-│  │  - REST Endpoints                                     │   │
-│  │  - JWT Authentication                                 │   │
+│  │              Express.js API Server                   │   │
+│  │  - REST Endpoints                                    │   │
+│  │  - JWT Authentication                                │   │
 │  │  - Request Validation (Zod)                          │   │
-│  │  - Error Handling                                     │   │
-│  │  - Rate Limiting                                      │   │
+│  │  - Error Handling                                    │   │
+│  │  - Rate Limiting                                     │   │
 │  └──────────────────────────────────────────────────────┘   │
 └─────────────────────────────────────────────────────────────┘
           │                    │                    │

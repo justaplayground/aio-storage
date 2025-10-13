@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'AIO Storage - Cloud Storage Platform',
+  title: 'Cloudipa - All In One Cloud Storage Platform',
   description: 'Secure and scalable cloud storage solution',
 }
 

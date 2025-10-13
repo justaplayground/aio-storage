@@ -1,4 +1,4 @@
-# AIO Storage - Cloud Storage Platform
+# Cloudipa -  All In One Cloud Storage Platform
 
 A scalable, fault-tolerant cloud storage platform built with Next.js, Express.js, MongoDB, and Docker. Supports asynchronous file upload, download, and streaming operations.
 
