@@ -8,6 +8,8 @@ export interface IUser {
   storageQuota: number;
   createdAt: Date;
   updatedAt: Date;
+  isActive: boolean;
+  isSuperAdmin: boolean;
 }
 
 export interface IUserResponse {
@@ -18,6 +20,8 @@ export interface IUserResponse {
   storageQuota: number;
   createdAt: string;
   updatedAt: string;
+  isActive: boolean;
+  isSuperAdmin: boolean;
 }
 
 // Folder Types

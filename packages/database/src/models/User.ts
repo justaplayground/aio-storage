@@ -34,6 +34,14 @@ const UserSchema = new Schema<IUserDocument>(
       default: 53687091200, // 50 GiB in bytes
       min: 0,
     },
+    isActive: {
+      type: Boolean,
+      default: false,
+    },
+    isSuperAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

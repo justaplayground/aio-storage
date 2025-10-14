@@ -55,6 +55,8 @@ export class AuthController {
       storageQuota: user.storageQuota,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
+      isActive: user.isActive,
+      isSuperAdmin: user.isSuperAdmin,
     };
 
     res.status(201).json({
@@ -106,6 +108,8 @@ export class AuthController {
       storageQuota: user.storageQuota,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
+      isActive: user.isActive,
+      isSuperAdmin: user.isSuperAdmin,
     };
 
     res.status(200).json({
@@ -134,6 +138,8 @@ export class AuthController {
       storageQuota: user.storageQuota,
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.updatedAt.toISOString(),
+      isActive: user.isActive,
+      isSuperAdmin: user.isSuperAdmin,
     };
 
     res.status(200).json({

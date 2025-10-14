@@ -12,10 +12,10 @@ export class AuditSecretController {
   private generateWPAKey(): string {
     // Generate 32 random bytes (256 bits)
     const randomBytes = crypto.randomBytes(32);
-    
+
     // Convert to hexadecimal string (64 characters)
-    const hexString = randomBytes.toString('hex');
-    
+    const hexString = randomBytes.toString("hex");
+
     // Format as WPA/WPA2 PSK (64 hex characters)
     return hexString.toUpperCase();
   }
@@ -56,7 +56,7 @@ export class AuditSecretController {
   public async generateAuditSecret(req: Request, res: Response): Promise<void> {
     try {
       const userId = (req as any).userId;
-      
+
       // Generate new WPA/WPA2 PSK format key
       const secretKey = this.generateWPAKey();
 
