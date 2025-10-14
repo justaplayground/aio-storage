@@ -7,4 +7,5 @@ export { Folder, IFolderDocument } from './models/Folder';
 export { File, IFileDocument } from './models/File';
 export { Share, IShareDocument } from './models/Share';
 export { AuditLog, IAuditLogDocument } from './models/AuditLog';
+export { AuditSecret, IAuditSecretDocument } from './models/AuditSecret';
 

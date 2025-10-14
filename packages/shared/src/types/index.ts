@@ -107,6 +107,19 @@ export interface IAuditLog {
   timestamp: Date;
 }
 
+// Audit Secret Types
+export interface IAuditSecret {
+  _id: string;
+  secretKey: string;
+  isUsed: boolean;
+}
+
+export interface IAuditSecretResponse {
+  id: string;
+  secretKey: string;
+  isUsed: boolean;
+}
+
 // Job Types
 export interface IUploadJob {
   fileId: string;

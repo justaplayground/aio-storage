@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import authRoutes from './auth.routes';
+import auditSecretRoutes from './audit-secret.routes';
 import { queueService } from '../services/queue';
 import { database } from '@aio-storage/database';
 import { redisService } from '../services/redis';
@@ -27,6 +28,7 @@ router.get('/health', (req, res) => {
 
 // Mount routes
 router.use('/auth', authRoutes);
+router.use('/audit-secrets', auditSecretRoutes);
 
 export default router;
 
